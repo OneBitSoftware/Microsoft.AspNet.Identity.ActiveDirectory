@@ -2,17 +2,10 @@
   "authors": [ "Radi Atanassov" ],
   "description": "This library lets you use Active Directory with ASP.NET Identity 3.",
   "version": "1.0.0-*",
-  "compilationOptions": {
-    "emitEntryPoint": true
-  },
 
   "dependencies": {
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final"
-  },
-
-  "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel"
+    "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
+      
   },
 
   "frameworks": {

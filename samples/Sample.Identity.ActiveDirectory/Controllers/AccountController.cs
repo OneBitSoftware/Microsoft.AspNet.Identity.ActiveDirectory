@@ -9,7 +9,6 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
-using Sample.Identity.ActiveDirectory.Models;
 using Sample.Identity.ActiveDirectory.Services;
 using Sample.Identity.ActiveDirectory.ViewModels.Account;
 using Microsoft.AspNetCore.Identity.ActiveDirectory;

@@ -9,7 +9,8 @@ using AspNetIdentity = Microsoft.AspNet.Identity;
 
 namespace Microsoft.AspNetCore.Identity.ActiveDirectory
 {
-    public class UserStore<TUser> : UserStore<TUser, DomainGroup>
+    public class UserStore<TUser> : 
+            UserStore<TUser, DomainGroup>
             where TUser : DomainUser
     {
         public UserStore() : base() { }
@@ -64,7 +65,7 @@ namespace Microsoft.AspNetCore.Identity.ActiveDirectory
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public Task<TUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)

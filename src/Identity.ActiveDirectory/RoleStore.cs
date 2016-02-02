@@ -38,7 +38,7 @@ namespace Microsoft.AspNetCore.Identity.ActiveDirectory
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public Task<TRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)

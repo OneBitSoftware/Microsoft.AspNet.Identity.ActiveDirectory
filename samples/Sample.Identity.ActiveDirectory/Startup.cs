@@ -9,9 +9,9 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Sample.Identity.ActiveDirectory.Models;
 using Sample.Identity.ActiveDirectory.Services;
 using Microsoft.AspNetCore.Identity.ActiveDirectory;
+using Microsoft.AspNet.Identity;
 
 namespace Sample.Identity.ActiveDirectory
 {
@@ -39,16 +39,9 @@ namespace Sample.Identity.ActiveDirectory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            //services.AddEntityFramework()
-            //    .AddSqlServer()
-            //    .AddDbContext<ApplicationDbContext>(options =>
-            //        options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-
             services.AddIdentity<DomainUser, DomainGroup>()
-                .AddActiveDirectoryStore()
-                //.AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                    .AddDefaultTokenProviders()
+                    .AddActiveDirectoryStore();
 
             services.AddMvc();
 
@@ -79,8 +72,8 @@ namespace Sample.Identity.ActiveDirectory
                     using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                         .CreateScope())
                     {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.Migrate();
+                        //serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                        //     .Database.Migrate();
                     }
                 }
                 catch { }

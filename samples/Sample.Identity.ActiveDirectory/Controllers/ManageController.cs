@@ -7,24 +7,24 @@ using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
-using Sample.Identity.ActiveDirectory.Models;
 using Sample.Identity.ActiveDirectory.Services;
 using Sample.Identity.ActiveDirectory.ViewModels.Manage;
+using Microsoft.AspNetCore.Identity.ActiveDirectory;
 
 namespace Sample.Identity.ActiveDirectory.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<DomainUser> _userManager;
+        private readonly SignInManager<DomainUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
-        UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager,
+        UserManager<DomainUser> userManager,
+        SignInManager<DomainUser> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
         ILoggerFactory loggerFactory)
@@ -275,7 +275,8 @@ namespace Sample.Identity.ActiveDirectory.Controllers
             }
             var userLogins = await _userManager.GetLoginsAsync(user);
             var otherLogins = _signInManager.GetExternalAuthenticationSchemes().Where(auth => userLogins.All(ul => auth.AuthenticationScheme != ul.LoginProvider)).ToList();
-            ViewData["ShowRemoveButton"] = user.PasswordHash != null || userLogins.Count > 1;
+            ViewData["ShowRemoveButton"] = userLogins.Count > 1;
+            //ViewData["ShowRemoveButton"] = user.PasswordHash != null || userLogins.Count > 1;
             return View(new ManageLoginsViewModel
             {
                 CurrentLogins = userLogins,
@@ -337,7 +338,7 @@ namespace Sample.Identity.ActiveDirectory.Controllers
             Error
         }
 
-        private async Task<ApplicationUser> GetCurrentUserAsync()
+        private async Task<DomainUser> GetCurrentUserAsync()
         {
             return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
         }

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Microsoft.AspNetCore.Identity.ActiveDirectory
 {
     public class DomainUser
     {
-        public string Id { get; set; }
+        public SecurityIdentifier Sid { get; set; }
 
-        public string GetSidAsString()
-        {
-            throw new NotImplementedException();
-            return string.Empty;
-        }
+        public UserPrincipal Principal { get; set; }
     }
 }
